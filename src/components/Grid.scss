@@ -7,5 +7,17 @@
             width: 25px;
             height: 25px;
         }
+
+        td.start {
+            background-color: green;
+        }
+
+        td.end {
+            background-color: red;
+        }
+
+        td.wall {
+            background-color: black;
+        }
     }
 }
