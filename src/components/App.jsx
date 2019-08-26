@@ -7,30 +7,50 @@ import {
     myState
 } from '../grid-context';
 
-import { initGridHelper } from '../utilities/helpers';
+import { initGrid } from '../utilities/initGrid';
+import { getCoordinates } from "../utilities/getCoordinates";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
-        this.toggleMousePressed = () => {
-            this.state.mousePressed ? this.setState({ mousePressed: false }) : this.setState({ mousePressed: true });
+        this.toggleMousePressed = (id) => {
+            if (this.state.mousePressed) {
+                this.setState({ mousePressed: false })
+                this.setState({ selectedCells: [] });
+            } else {
+                this.setState({ mousePressed: true });
+                const indexes = getCoordinates(id);
+                this.setState({ selectedCellVal: this.state.grid[indexes[0]][indexes[1]] });
+                // console.log('this will change: ' + id);
+            }
         }
-        this.toggleCell = (id) => {
-            console.log('this will change: ' + id);
-            // this.setState()
+        this.toggleCell = (id, cellValue) => {
+            console.log(cellValue);
+            const indexes = getCoordinates(id);
+            let newCellValue;
+            if (cellValue === 'wall')
+                newCellValue = 'unvisited';
+            else if (cellValue === 'unvisited')
+                newCellValue = 'wall';
+
+            this.setState({
+                grid: initGrid.updateGrid(this.state.grid, indexes[1], indexes[0], newCellValue)
+            });
         }
         this.drag = (id) => {
-            console.log('dragging ' + id);
+            console.log('dragging ' + this.state.selectedCellVal);
             // this.setState()
         }
         this.initGrid = () => {
-            return initGridHelper();
+            return initGrid();
         }
 
         this.state = {
             grid: this.initGrid(),
+            selectedCells: myState.grid,
             mousePressed: myState.mousePressed,
+            selectedCellVal: myState.selectedCellVal,
             toggleMousePressed: this.toggleMousePressed,
             toggleCell: this.toggleCell,
             drag: this.drag
@@ -38,7 +58,8 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.state.mousePressed);
+        // console.log(this.state.mousePressed);
+        // console.log(this.state.selectedCellVal);
         return (
             <div>
                 <GridContext.Provider value={this.state}>

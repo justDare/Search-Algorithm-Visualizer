@@ -4,18 +4,20 @@ import { GridContext } from '../grid-context';
 
 class Cell extends React.Component {
 
-    handleClick = (id) => {
-        if (this.props.cellState === 'unvisited') {
-            console.log('empty')
+    handleClick = (id, cellState) => {
+        if (cellState === 'unvisited') {
+            // console.log('empty')
             let { toggleMousePressed } = this.context;
-            toggleMousePressed();
+            toggleMousePressed(id);
             // let { mousePressed } = this.context;
 
-        } else if (this.props.cellState === 'start')
+        } else if (cellState === 'start')
             console.log('start');
 
-        let { toggleCell } = this.context;
-        toggleCell(id);
+        if (cellState !== 'start' && cellState !== 'end') {
+            let { toggleCell } = this.context;
+            toggleCell(id, cellState);
+        }
     }
 
     handleMouseUp = (id) => {
@@ -24,10 +26,14 @@ class Cell extends React.Component {
             toggleMousePressed();
     }
 
-    handleDrag = (id) => {
-        let { mousePressed } = this.context;
+    handleDrag = (id, cellState) => {
+        let { mousePressed, selectedCellVal } = this.context;
         if (mousePressed) {
-            console.log('dragging!!!');
+            if (selectedCellVal !== 'start' && selectedCellVal !== 'end') {
+                let { toggleCell } = this.context;
+                toggleCell(id, cellState);
+            }
+            console.log('dragging!!! ' + selectedCellVal);
         }
     }
 
@@ -39,9 +45,9 @@ class Cell extends React.Component {
             <td
                 className={cellState}
                 id={id}
-                onMouseDown={e => this.handleClick(id)}
+                onMouseDown={e => this.handleClick(id, cellState)}
                 onMouseUp={e => this.handleMouseUp(id)}
-                onMouseOver={e => this.handleDrag(id)}
+                onMouseOver={e => this.handleDrag(id, cellState)}
             >
             </td>
         );

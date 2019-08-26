@@ -1,4 +1,4 @@
-export function initGridHelper() {
+export function initGrid() {
 
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -29,6 +29,8 @@ export function initGridHelper() {
         });
         return newArray;
     }
+
+    initGrid.updateGrid = updateGrid;
 
     return grid;
 }
