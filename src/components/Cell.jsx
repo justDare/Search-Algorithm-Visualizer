@@ -29,7 +29,7 @@ class Cell extends React.Component {
     handleDrag = (id, cellState) => {
         let { mousePressed, selectedCellVal } = this.context;
         if (mousePressed) {
-            if (selectedCellVal !== 'start' && selectedCellVal !== 'end') {
+            if (selectedCellVal !== 'start' && selectedCellVal !== 'end' && cellState !== 'start' & cellState !== 'end') {
                 let { toggleCell } = this.context;
                 toggleCell(id, cellState);
             }
