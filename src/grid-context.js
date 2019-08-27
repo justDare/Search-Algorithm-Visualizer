@@ -3,11 +3,14 @@ import React from 'react';
 export const myState = {
     grid: [],
     selectedCells: [],
-    algorithm: 'Select An Algorithm',
+    algorithm: null,
     mousePressed: false,
     selectedCellVal: false,
     setAlgorithm: () => {
         console.log('set algo');
+    },
+    resetBoard: () => {
+        console.log('reset');
     },
     toggleMousePressed: () => {
         console.log('mouse pressed?');

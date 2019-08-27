@@ -17,6 +17,9 @@ class App extends React.Component {
         this.setAlgorithm = (algorithm) => {
             this.setState({ algorithm: algorithm });
         }
+        this.resetBoard = () => {
+            this.setState({ grid: initGrid() });
+        }
         this.toggleMousePressed = (id) => {
             if (this.state.mousePressed) {
                 this.setState({ mousePressed: false })
@@ -55,6 +58,7 @@ class App extends React.Component {
             algorithm: myState.algorithm,
             mousePressed: myState.mousePressed,
             selectedCellVal: myState.selectedCellVal,
+            resetBoard: this.resetBoard,
             setAlgorithm: this.setAlgorithm,
             toggleMousePressed: this.toggleMousePressed,
             toggleCell: this.toggleCell,

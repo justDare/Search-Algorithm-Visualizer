@@ -10,9 +10,25 @@ class Navbar extends React.Component {
         setAlgorithm(event.target.value);
     }
 
+    visualize = (algorithm) => {
+        console.log(algorithm);
+    }
+
+    resetBoard = () => {
+        let { resetBoard } = this.context;
+        resetBoard();
+    }
+
     render() {
 
         let { algorithm } = this.context;
+        let algorithmDisplay;
+        if (algorithm !== null)
+            algorithmDisplay = `Visualize ${algorithm}!`;
+        else
+            algorithmDisplay = 'Select an algorithm!';
+
+        const defaultValue = algorithmDisplay;
 
         return (
             <nav className="navbar navbar-light bg-light">
@@ -20,16 +36,29 @@ class Navbar extends React.Component {
                     {/* <img src="" width="30" height="30" class="d-inline-block align-top" alt=""> */}
                     SearchBuddy
                 </a>
-
+                <div
+                    id="visualize"
+                    className="btn-primary"
+                    onClick={() => this.visualize(algorithm)}
+                >
+                    {algorithmDisplay}
+                </div>
+                <div
+                    id="reset"
+                    className="btn-secondary"
+                    onClick={() => this.resetBoard()}
+                >
+                    Reset Board
+                </div>
                 <select
                     id="selectAlgorithm"
                     onChange={this.handleChange}
-                    value={algorithm}
+                    value={defaultValue}
                 >
                     <option name="Select An Algorithm" value="Select An Algorithm">Select An Algorithm</option>
-                    <option name="Breadth First Search" value="Breadth First Search">Breadth First Search</option>
-                    <option name="Depth First Search" value="Depth First Search">Depth First Search</option>
-                    <option name="Dijkstra's Algorithm" value="Dijkstra's Algorithm">Dijkstra's Algorithm</option>
+                    <option name="Breadth First Search" value="BFS">Breadth First Search</option>
+                    <option name="Depth First Search" value="DFS">Depth First Search</option>
+                    <option name="Dijkstra's Algorithm" value="Dijkstra's">Dijkstra's Algorithm</option>
                     <option name="A* Search" value="A* Search">A* Search</option>
                 </select>
             </nav>
