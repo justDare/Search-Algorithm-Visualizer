@@ -1,28 +1,28 @@
-import React from 'react';
+import React from "react";
 
 export const myState = {
-    grid: [],
-    selectedCells: [],
-    algorithm: null,
-    mousePressed: false,
-    selectedCellVal: false,
-    setAlgorithm: () => {
-        console.log('set algo');
-    },
-    resetBoard: () => {
-        console.log('reset');
-    },
-    toggleMousePressed: () => {
-        console.log('mouse pressed?');
-    },
-    toggleCell: (id) => {
-        console.log(id);
-    },
-    drag: (id) => {
-        console.log('dragging');
-    }
+  grid: [],
+  startPoint: null,
+  target: null,
+  selectedCells: [],
+  algorithm: null,
+  mousePressed: false,
+  selectedCellVal: false,
+  setAlgorithm: () => {
+    console.log("set algo");
+  },
+  resetBoard: () => {
+    console.log("reset");
+  },
+  toggleMousePressed: () => {
+    console.log("mouse pressed?");
+  },
+  toggleCell: id => {
+    console.log(id);
+  },
+  drag: id => {
+    console.log("dragging");
+  }
 };
 
-export const GridContext = React.createContext(
-    myState,
-);
+export const GridContext = React.createContext(myState);
