@@ -8,6 +8,7 @@ export const myState = {
   algorithm: null,
   mousePressed: false,
   selectedCellVal: false,
+  visited: [],
   setAlgorithm: () => {
     console.log("set algo");
   },
@@ -20,8 +21,8 @@ export const myState = {
   toggleCell: id => {
     console.log(id);
   },
-  drag: id => {
-    console.log("dragging");
+  visualize: algorithm => {
+    console.log("algo");
   }
 };
 

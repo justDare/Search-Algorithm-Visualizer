@@ -1,50 +1,78 @@
 #grid {
-    margin: 0 5px;
+  margin: 0 5px;
 
-    tr {
-        td {
-            border: 1px solid rgb(59, 177, 236);
-            width: 25px;
-            height: 25px;
-        }
-
-        td.start {
-            background-color: green;
-        }
-
-        td.end {
-            background-color: red;
-        }
-
-        td.wall {
-            animation-duration: 0.3s;
-            animation-name: wallAnimation;
-            animation-timing-function: ease-out;
-            animation-delay: 0;
-            animation-direction: alternate;
-            animation-iteration-count: 1;
-            animation-fill-mode: forwards;
-            animation-play-state: running;
-        }
+  tr {
+    td {
+      border: 1px solid rgb(59, 177, 236);
+      width: 25px;
+      height: 25px;
     }
+
+    td.start {
+      background-color: green;
+    }
+
+    td.end {
+      background-color: red;
+    }
+
+    td.wall {
+      animation-duration: 0.3s;
+      animation-name: wallAnimation;
+      animation-timing-function: ease-out;
+      animation-delay: 0;
+      animation-direction: alternate;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
+    }
+
+    td.visited {
+      animation-duration: 0.3s;
+      animation-name: visitedAnimation;
+      animation-timing-function: ease-out;
+      animation-direction: alternate;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
+    }
+  }
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: blue;
+    border: 1px solid blue;
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: blue;
+    border: 1px solid blue;
+  }
+  100% {
+    transform: scale(1);
+    background-color: blue;
+    border: 1px solid blue;
+  }
 }
 
 @keyframes wallAnimation {
-    0% {
-        transform: scale(.3);
-        background-color: rgb(12, 53, 71);
-        border: 1px solid rgb(12, 53, 71);
-    }
+  0% {
+    transform: scale(0.3);
+    background-color: rgb(12, 53, 71);
+    border: 1px solid rgb(12, 53, 71);
+  }
 
-    50% {
-        transform: scale(1.2);
-        background-color: rgb(12, 53, 71);
-        border: 1px solid rgb(12, 53, 71);
-    }
-    100% {
-        transform: scale(1.0);
-        background-color: rgb(12, 53, 71);
-        border: 1px solid rgb(12, 53, 71);
-    }
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(12, 53, 71);
+    border: 1px solid rgb(12, 53, 71);
+  }
+  100% {
+    transform: scale(1);
+    background-color: rgb(12, 53, 71);
+    border: 1px solid rgb(12, 53, 71);
+  }
 }
-  

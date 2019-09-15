@@ -34,25 +34,27 @@ class Cell extends React.Component {
       ) {
         toggleCell(id, cellState);
       } else if (selectedCellVal === "start") {
-        console.log("dragging start");
         toggleCell(id, "start");
         // erase old start cell
         // new start cell is this one
       } else if (selectedCellVal === "end") {
         toggleCell(id, "end");
-        console.log("dragging end");
       }
-      console.log("dragging!!! " + selectedCellVal);
     }
   };
 
+  componentDidMount = () => {};
+
   render() {
-    const { cellState, id } = this.props;
-    let { drag } = this.context;
+    const { cellState, id, delay } = this.props;
+    let delayAnim;
+    if (cellState !== "visited") delayAnim = "";
+    else delayAnim = delay.toString() + "s";
 
     return (
       <td
-        className={cellState}
+        className={cellState + " " + delay}
+        style={{ animationDelay: delayAnim }}
         id={id}
         onMouseDown={e => this.handleClick(id, cellState)}
         onMouseUp={e => this.handleMouseUp(id)}

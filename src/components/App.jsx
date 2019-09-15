@@ -7,6 +7,8 @@ import { GridContext, myState } from "../grid-context";
 import { initGrid } from "../utilities/initGrid";
 import { getCoordinates } from "../utilities/getCoordinates";
 import { movePoint } from "../utilities/movePoint";
+import { DFS } from "../utilities/searchAlgorithms/DFS";
+import { constants } from "zlib";
 
 class App extends React.Component {
   constructor(props) {
@@ -34,45 +36,64 @@ class App extends React.Component {
         this.setState({
           selectedCellVal: this.state.grid[indexes[0]][indexes[1]]
         });
-
-        console.log(
-          "selected cell: " + this.state.grid[indexes[0]][indexes[1]]
-        );
       }
     };
     this.toggleCell = (id, cellValue) => {
       const indexes = getCoordinates(id);
-      console.log(indexes);
-      if (this.state.selectedCellVal === "start") {
-        if (this.state.grid[indexes[0]][indexes[1]] !== "end") {
-          const newGrid = movePoint(
-            this.state.grid,
-            this.state.startPoint[0],
-            this.state.startPoint[1],
-            indexes[0],
-            indexes[1],
-            "start"
-          );
+      const curVal = this.state.grid[indexes[0]][indexes[1]];
+
+      if (
+        this.state.selectedCellVal === "start" ||
+        this.state.selectedCellVal === "end"
+      ) {
+        let newCell, points;
+        if (
+          this.state.selectedCellVal === "start" &&
+          this.state.grid[indexes[0]][indexes[1]] !== "end"
+        ) {
+          newCell = "start";
+          points = [this.state.startPoint[0], this.state.startPoint[1]];
           this.setState({ startPoint: indexes });
-          this.setState({
-            grid: newGrid
-          });
+        } else if (
+          this.state.selectedCellVal === "end" &&
+          this.state.grid[indexes[0]][indexes[1]] !== "start"
+        ) {
+          newCell = "end";
+          points = [this.state.target[0], this.state.target[1]];
+          this.setState({ target: indexes });
         }
-      } else if (this.state.selectedCellVal === "end") {
-        if (this.state.grid[indexes[0]][indexes[1]] !== "start") {
-          console.log("here");
+
+        if (points !== undefined) {
           const newGrid = movePoint(
             this.state.grid,
-            this.state.target[0],
-            this.state.target[1],
+            points[0],
+            points[1],
             indexes[0],
             indexes[1],
-            "end"
+            newCell
           );
-          this.setState({ target: indexes });
-          this.setState({
-            grid: newGrid
-          });
+
+          this.setState(
+            {
+              grid: newGrid
+            },
+            () => {
+              if (curVal === "wall")
+                this.setState({
+                  lastCell: { cell: "wall", points: [indexes[0], indexes[1]] }
+                });
+              if (this.state.lastCell.cell === "wall") {
+                this.setState({
+                  grid: initGrid.updateGrid(
+                    this.state.grid,
+                    this.state.lastCell.points[1],
+                    this.state.lastCell.points[0],
+                    "wall"
+                  )
+                });
+              }
+            }
+          );
         }
       } else {
         let newCellValue;
@@ -88,9 +109,6 @@ class App extends React.Component {
         });
       }
     };
-    this.drag = id => {
-      //   console.log("dragging " + this.state.selectedCellVal);
-    };
     this.initGrid = () => {
       return initGrid();
     };
@@ -105,6 +123,27 @@ class App extends React.Component {
       return target;
     };
 
+    this.visualize = algorithm => {
+      let results;
+      switch (algorithm) {
+        case "DFS":
+          // code block
+          results = DFS(
+            this.state.grid,
+            this.state.startPoint,
+            this.state.target
+          );
+          this.setState({ visited: results.visited, grid: results.newGrid });
+          break;
+        case "BFS":
+          // code block
+          console.log(algorithm);
+          break;
+        default:
+          return;
+      }
+    };
+
     this.state = {
       grid: this.initGrid(),
       startPoint: this.getStart(),
@@ -113,9 +152,12 @@ class App extends React.Component {
       algorithm: myState.algorithm,
       mousePressed: myState.mousePressed,
       selectedCellVal: myState.selectedCellVal,
+      visited: myState.visited,
+      lastCell: { cell: null, points: [] },
       resetBoard: this.resetBoard,
       setAlgorithm: this.setAlgorithm,
       toggleMousePressed: this.toggleMousePressed,
+      visualize: this.visualize,
       toggleCell: this.toggleCell,
       drag: this.drag
     };
@@ -126,7 +168,7 @@ class App extends React.Component {
       <div>
         <GridContext.Provider value={this.state}>
           <Navbar />
-          <Grid />
+          <Grid visited={this.state.visited} />
         </GridContext.Provider>
       </div>
     );

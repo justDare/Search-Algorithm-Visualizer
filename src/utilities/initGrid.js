@@ -43,6 +43,7 @@ export function initGrid() {
       }
       return r;
     });
+
     return newArray;
   }
 
