@@ -8,7 +8,6 @@ import { initGrid } from "../utilities/initGrid";
 import { getCoordinates } from "../utilities/getCoordinates";
 import { movePoint } from "../utilities/movePoint";
 import { DFS } from "../utilities/searchAlgorithms/DFS";
-import { constants } from "zlib";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class App extends React.Component {
       this.setState({ algorithm: algorithm });
     };
     this.resetBoard = () => {
-      this.setState({ grid: initGrid() });
+      this.setState({ grid: initGrid(), path: [], visited: [] });
       this.setState({
         startPoint: this.getStart(),
         target: this.getTarget()
@@ -133,7 +132,18 @@ class App extends React.Component {
             this.state.startPoint,
             this.state.target
           );
-          this.setState({ visited: results.visited, grid: results.newGrid });
+          this.setState({
+            visited: results.visited,
+            grid: results.newGrid
+          });
+          setTimeout(() => {
+            this.setState({
+              grid: results.gridWithPath,
+              path: results.pathArray
+            });
+            console.log(results.visited.length * 0.01);
+          }, results.visited.length * 0.01 * 1000 + 700);
+
           break;
         case "BFS":
           // code block
@@ -153,6 +163,7 @@ class App extends React.Component {
       mousePressed: myState.mousePressed,
       selectedCellVal: myState.selectedCellVal,
       visited: myState.visited,
+      path: myState.path,
       lastCell: { cell: null, points: [] },
       resetBoard: this.resetBoard,
       setAlgorithm: this.setAlgorithm,
@@ -168,7 +179,7 @@ class App extends React.Component {
       <div>
         <GridContext.Provider value={this.state}>
           <Navbar />
-          <Grid visited={this.state.visited} />
+          <Grid visited={this.state.visited} path={this.state.path} />
         </GridContext.Provider>
       </div>
     );

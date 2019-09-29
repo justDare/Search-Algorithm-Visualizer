@@ -48,12 +48,12 @@ class Cell extends React.Component {
   render() {
     const { cellState, id, delay } = this.props;
     let delayAnim;
-    if (cellState !== "visited") delayAnim = "";
+    if (cellState !== "visited" && cellState !== "path") delayAnim = "";
     else delayAnim = delay.toString() + "s";
 
     return (
       <td
-        className={cellState + " " + delay}
+        className={cellState}
         style={{ animationDelay: delayAnim }}
         id={id}
         onMouseDown={e => this.handleClick(id, cellState)}

@@ -9,6 +9,7 @@ export const myState = {
   mousePressed: false,
   selectedCellVal: false,
   visited: [],
+  path: [],
   setAlgorithm: () => {
     console.log("set algo");
   },

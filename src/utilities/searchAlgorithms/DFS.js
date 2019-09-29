@@ -1,16 +1,30 @@
 export function DFS(grid, start, end) {
-  const visited = dfs(grid, start, end);
-  const newGrid = updateGrid(grid, visited);
+  const { visited, pathArray } = dfs(grid, start, end);
+  let newGrid = updateGrid(grid, visited, false);
+  let gridWithPath = newGrid.map(function(arr) {
+    return arr.slice();
+  });
+  console.log(newGrid);
+  if (pathArray !== null)
+    gridWithPath = updateGrid(gridWithPath, pathArray, true);
 
   function dfs(grid, vertex, end) {
     let stack = [],
-      visited = [];
+      visited = [],
+      path = {},
+      pathArray = [];
     stack.push(vertex);
 
     while (stack.length > 0) {
       let cur = stack.pop();
       if (arraysMatch(cur, end)) {
-        return visited;
+        path[vertex] = cur;
+        let tempCur = end;
+        while (!arraysMatch(tempCur, vertex)) {
+          pathArray.unshift(tempCur);
+          tempCur = path[tempCur];
+        }
+        return { visited, pathArray };
       }
       visited.push(cur);
       const neighbors = getNeighbours(cur, grid, grid.length, grid[0].length);
@@ -19,12 +33,12 @@ export function DFS(grid, start, end) {
           if (!hasVertex(neighbour, visited)) {
             visited.push(neighbour);
             stack.push(neighbour);
+            path[neighbour] = cur;
           }
         }
       }
     }
-
-    return visited;
+    return { visited, pathArray };
   }
 
   // check visited array for a vertex
@@ -83,7 +97,7 @@ export function DFS(grid, start, end) {
     return false;
   }
 
-  function updateGrid(grid, visited) {
+  function updateGrid(grid, visited, path) {
     for (var i = 0; i < grid.length; i++) {
       for (var j = 0; j < grid[0].length; j++) {
         if (
@@ -91,12 +105,13 @@ export function DFS(grid, start, end) {
           grid[i][j] !== "start" &&
           grid[i][j] !== "end"
         )
-          grid[i][j] = "visited";
+          if (!path) grid[i][j] = "visited";
+          else grid[i][j] = "path";
       }
     }
     // console.log("new grid: " + grid);
     return grid;
   }
 
-  return { newGrid, visited };
+  return { newGrid, gridWithPath, visited, pathArray };
 }

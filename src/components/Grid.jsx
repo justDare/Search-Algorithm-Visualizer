@@ -11,12 +11,11 @@ class Grid extends React.Component {
 
   getVisitedIndex = (visited, indexes) => {
     for (var i = 0; i < visited.length; i++) {
-      // This if statement depends on the format of your array
-      if (visited[i][0] == indexes[0] && visited[i][1] == indexes[1]) {
-        return i; // Found it
+      if (visited[i][0] === indexes[0] && visited[i][1] === indexes[1]) {
+        return i;
       }
     }
-    return 0; // Not found
+    return 0;
   };
 
   createTable = () => {
@@ -32,6 +31,10 @@ class Grid extends React.Component {
         if (this.props.visited.length > 0) {
           index = this.getVisitedIndex(this.props.visited, [i, j]);
           delay = index * 0.01;
+        }
+        if (this.props.path.length > 0) {
+          index = this.getVisitedIndex(this.props.path, [i, j]);
+          delay = index * 0.02;
         }
         children.push(
           <Cell
@@ -50,7 +53,6 @@ class Grid extends React.Component {
 
   render() {
     let table = this.createTable();
-    console.log(this.props.visited);
     return (
       <table id="grid">
         <tbody>{table}</tbody>

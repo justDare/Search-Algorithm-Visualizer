@@ -28,9 +28,21 @@
     }
 
     td.visited {
-      animation-duration: 0.3s;
+      animation-duration: 1.5s;
       animation-name: visitedAnimation;
       animation-timing-function: ease-out;
+      animation-direction: alternate;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
+    }
+
+    td.path {
+      background-color: rgba(0, 190, 218, 0.75);
+      animation-name: pathAnimation;
+      animation-duration: 1.5s;
+      animation-timing-function: linear;
+      animation-delay: 0;
       animation-direction: alternate;
       animation-iteration-count: 1;
       animation-fill-mode: forwards;
@@ -39,22 +51,42 @@
   }
 }
 
-@keyframes visitedAnimation {
+@keyframes pathAnimation {
   0% {
-    transform: scale(0.3);
-    background-color: blue;
-    border: 1px solid blue;
+    transform: scale(0.6);
+    background-color: rgb(255, 254, 106);
+    border: none;
   }
 
   50% {
     transform: scale(1.2);
-    background-color: blue;
-    border: 1px solid blue;
+    background-color: rgb(255, 254, 106);
+    border: none;
   }
   100% {
     transform: scale(1);
-    background-color: blue;
-    border: 1px solid blue;
+    background-color: rgb(255, 254, 106);
+    border: none;
+  }
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 0, 66, 0.75);
+    border-radius: 100%;
+  }
+  50% {
+    background-color: rgba(17, 104, 217, 0.75);
+  }
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(0, 217, 159, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(0, 190, 218, 0.75);
   }
 }
 
