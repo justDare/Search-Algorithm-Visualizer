@@ -8,6 +8,7 @@ import { initGrid } from "../utilities/initGrid";
 import { getCoordinates } from "../utilities/getCoordinates";
 import { movePoint } from "../utilities/movePoint";
 import { DFS } from "../utilities/searchAlgorithms/DFS";
+import { BFS } from "../utilities/searchAlgorithms/BFS";
 
 class App extends React.Component {
   constructor(props) {
@@ -124,34 +125,41 @@ class App extends React.Component {
 
     this.visualize = algorithm => {
       let results;
+
+      // use selected search
       switch (algorithm) {
         case "DFS":
-          // code block
           results = DFS(
             this.state.grid,
             this.state.startPoint,
             this.state.target
           );
-          this.setState({
-            visited: results.visited,
-            grid: results.newGrid
-          });
-          setTimeout(() => {
-            this.setState({
-              grid: results.gridWithPath,
-              path: results.pathArray
-            });
-            console.log(results.visited.length * 0.01);
-          }, results.visited.length * 0.01 * 1000 + 700);
 
           break;
         case "BFS":
-          // code block
-          console.log(algorithm);
+          results = BFS(
+            this.state.grid,
+            this.state.startPoint,
+            this.state.target
+          );
           break;
         default:
           return;
       }
+
+      // animate grid with results of search
+      this.setState({
+        visited: results.visited,
+        grid: results.newGrid
+      });
+      setTimeout(() => {
+        this.setState({
+          grid: results.gridWithPath,
+          path: results.pathArray
+        });
+        console.log(results.visited.length * 0.01);
+      }, results.visited.length * 0.01 * 1000 + 700);
+
     };
 
     this.state = {
