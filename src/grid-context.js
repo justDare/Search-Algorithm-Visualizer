@@ -13,6 +13,9 @@ export const myState = {
   setAlgorithm: () => {
     console.log("set algo");
   },
+  createMaze: () => {
+    console.log('create maze');
+  },
   resetBoard: () => {
     console.log("reset");
   },

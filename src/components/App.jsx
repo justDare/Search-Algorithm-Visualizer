@@ -4,11 +4,17 @@ import Grid from "./Grid.jsx";
 
 import { GridContext, myState } from "../grid-context";
 
+// helper utilities
 import { initGrid } from "../utilities/initGrid";
 import { getCoordinates } from "../utilities/getCoordinates";
 import { movePoint } from "../utilities/movePoint";
+
+// algorithms
 import { DFS } from "../utilities/searchAlgorithms/DFS";
 import { BFS } from "../utilities/searchAlgorithms/BFS";
+
+// boards and mazes creation
+import { mazeHandler } from "../utilities/mazeHandler";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +22,9 @@ class App extends React.Component {
 
     this.setAlgorithm = algorithm => {
       this.setState({ algorithm: algorithm });
+    };
+    this.createMaze = maze => {
+      mazeHandler(maze, this.state.grid);
     };
     this.resetBoard = () => {
       this.setState({ grid: initGrid(), path: [], visited: [] });
@@ -157,7 +166,6 @@ class App extends React.Component {
           grid: results.gridWithPath,
           path: results.pathArray
         });
-        console.log(results.visited.length * 0.01);
       }, results.visited.length * 0.01 * 1000 + 700);
 
     };
@@ -175,6 +183,7 @@ class App extends React.Component {
       lastCell: { cell: null, points: [] },
       resetBoard: this.resetBoard,
       setAlgorithm: this.setAlgorithm,
+      createMaze: this.createMaze,
       toggleMousePressed: this.toggleMousePressed,
       visualize: this.visualize,
       toggleCell: this.toggleCell,

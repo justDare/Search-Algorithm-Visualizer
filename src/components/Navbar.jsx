@@ -9,10 +9,15 @@ class Navbar extends React.Component {
     visualize(algorithm);
   };
 
-  handleChange = event => {
+  handleAlgo = event => {
     let { setAlgorithm } = this.context;
     setAlgorithm(event.target.value);
   };
+
+  handleMaze = event => {
+    let { createMaze } = this.context;
+    createMaze(event.target.value);
+  }
 
   resetBoard = () => {
     let { resetBoard } = this.context;
@@ -48,12 +53,22 @@ class Navbar extends React.Component {
           Reset Board
         </div>
         <select
-          id="selectAlgorithm"
-          onChange={this.handleChange}
+          onChange={this.handleMaze}
+          value="Mazes and Patterns"
+        >
+          <option name="Select A Maze" value="Select An Algorithm">
+            Mazes & Patterns
+          </option>
+          <option name="Random Weighted Maze" value="random-weighted">
+            Random Weighted Maze
+          </option>
+        </select>
+        <select
+          onChange={this.handleAlgo}
           value={defaultValue}
         >
           <option name="Select An Algorithm" value="Select An Algorithm">
-            Select An Algorithm
+            Algorithms
           </option>
           <option name="Breadth First Search" value="BFS">
             Breadth First Search

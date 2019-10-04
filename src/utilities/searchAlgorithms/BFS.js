@@ -5,8 +5,6 @@ export function BFS(grid, start, end) {
     // initialize helper functions
     searchHelpers();
 
-    console.log('BFS');
-
     const { visited, pathArray } = bfs(grid, start, end);
     let newGrid = searchHelpers.updateGrid(grid, visited, false);
     let gridWithPath = newGrid.map(function (arr) {

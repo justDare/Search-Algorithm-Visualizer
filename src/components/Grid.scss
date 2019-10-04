@@ -39,6 +39,7 @@
 
     td.path {
       background-color: rgba(0, 190, 218, 0.75);
+      border: 1px solid #cccccc;
       animation-name: pathAnimation;
       animation-duration: 1.5s;
       animation-timing-function: linear;
@@ -87,6 +88,7 @@
   100% {
     transform: scale(1);
     background-color: rgba(0, 190, 218, 0.75);
+    border: 1px solid #cccccc;
   }
 }
 
