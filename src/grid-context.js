@@ -14,7 +14,7 @@ export const myState = {
     console.log("set algo");
   },
   createMaze: () => {
-    console.log('create maze');
+    console.log("create maze");
   },
   resetBoard: () => {
     console.log("reset");

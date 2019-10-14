@@ -8,6 +8,7 @@ import { GridContext, myState } from "../grid-context";
 import { initGrid } from "../utilities/initGrid";
 import { getCoordinates } from "../utilities/getCoordinates";
 import { movePoint } from "../utilities/movePoint";
+import { removeCells } from "../utilities/removeCells";
 
 // algorithms
 import { DFS } from "../utilities/searchAlgorithms/DFS";
@@ -24,8 +25,9 @@ class App extends React.Component {
       this.setState({ algorithm: algorithm });
     };
     this.createMaze = maze => {
-      mazeHandler(maze, this.state.grid);
+      this.setState({ grid: mazeHandler(maze, this.state.grid) });
     };
+    // add options to preserve walls, start & end points and weights
     this.resetBoard = () => {
       this.setState({ grid: initGrid(), path: [], visited: [] });
       this.setState({
@@ -107,7 +109,15 @@ class App extends React.Component {
       } else {
         let newCellValue;
         if (cellValue === "wall") newCellValue = "unvisited";
-        else if (cellValue === "unvisited") newCellValue = "wall";
+        else if (
+          cellValue === "unvisited" ||
+          cellValue === "visited" ||
+          cellValue === "path" ||
+          cellValue === "weight" ||
+          cellValue === "visited weight" ||
+          cellValue === "unvisited weight"
+        )
+          newCellValue = "wall";
         this.setState({
           grid: initGrid.updateGrid(
             this.state.grid,
@@ -133,41 +143,10 @@ class App extends React.Component {
     };
 
     this.visualize = algorithm => {
-      let results;
-
-      // use selected search
-      switch (algorithm) {
-        case "DFS":
-          results = DFS(
-            this.state.grid,
-            this.state.startPoint,
-            this.state.target
-          );
-
-          break;
-        case "BFS":
-          results = BFS(
-            this.state.grid,
-            this.state.startPoint,
-            this.state.target
-          );
-          break;
-        default:
-          return;
-      }
-
-      // animate grid with results of search
-      this.setState({
-        visited: results.visited,
-        grid: results.newGrid
+      let grid = this.setState({
+        grid: removeCells(this.state.grid, true, true, false),
+        willVisualize: true
       });
-      setTimeout(() => {
-        this.setState({
-          grid: results.gridWithPath,
-          path: results.pathArray
-        });
-      }, results.visited.length * 0.01 * 1000 + 700);
-
     };
 
     this.state = {
@@ -186,9 +165,63 @@ class App extends React.Component {
       createMaze: this.createMaze,
       toggleMousePressed: this.toggleMousePressed,
       visualize: this.visualize,
+      willVisualize: false,
       toggleCell: this.toggleCell,
       drag: this.drag
     };
+  }
+
+  showPath = () => {
+    let results;
+    let algorithm = this.state.algorithm;
+
+    // use selected search
+    switch (algorithm) {
+      case "DFS":
+        results = DFS(
+          this.state.grid,
+          this.state.startPoint,
+          this.state.target
+        );
+
+        break;
+      case "BFS":
+        results = BFS(
+          this.state.grid,
+          this.state.startPoint,
+          this.state.target
+        );
+        break;
+      default:
+        this.setState({
+          willVisualize: false
+        });
+        return;
+    }
+
+    // animate grid with results of search
+    setTimeout(() => {
+      this.setState({
+        visited: results.visited,
+        grid: results.newGrid
+      });
+    }, 1);
+    setTimeout(() => {
+      this.setState({
+        grid: results.gridWithPath,
+        path: results.pathArray,
+        willVisualize: false
+      });
+    }, results.visited.length * 0.01 * 1000 + 900);
+  };
+
+  componentDidUpdate(previousProps, previousState) {
+    if (
+      this.state.willVisualize &&
+      previousState.willVisualize !== this.state.willVisualize
+    ) {
+      this.showPath();
+    }
   }
 
   render() {

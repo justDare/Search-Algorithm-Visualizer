@@ -21,7 +21,6 @@ class Grid extends React.Component {
   createTable = () => {
     let table = [];
     let { grid } = this.context;
-
     // Outer loop to create parent
     for (let i = 0; i < grid.length; i++) {
       let children = [];
@@ -53,6 +52,7 @@ class Grid extends React.Component {
 
   render() {
     let table = this.createTable();
+    console.log("grid renbder");
     return (
       <table id="grid">
         <tbody>{table}</tbody>

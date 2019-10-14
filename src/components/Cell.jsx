@@ -4,14 +4,8 @@ import { GridContext } from "../grid-context";
 
 class Cell extends React.Component {
   handleClick = (id, cellState) => {
-    // if (cellState === "unvisited") {
-    // console.log('empty')
     let { toggleMousePressed } = this.context;
     toggleMousePressed(id);
-    // let { mousePressed } = this.context;
-    // }
-    // } else if (cellState === 'start')
-    //     console.log('start');
 
     if (cellState !== "start" && cellState !== "end") {
       let { toggleCell } = this.context;
@@ -35,8 +29,6 @@ class Cell extends React.Component {
         toggleCell(id, cellState);
       } else if (selectedCellVal === "start") {
         toggleCell(id, "start");
-        // erase old start cell
-        // new start cell is this one
       } else if (selectedCellVal === "end") {
         toggleCell(id, "end");
       }
@@ -48,8 +40,16 @@ class Cell extends React.Component {
   render() {
     const { cellState, id, delay } = this.props;
     let delayAnim;
-    if (cellState !== "visited" && cellState !== "path") delayAnim = "";
-    else delayAnim = delay.toString() + "s";
+    if (typeof this.props.cellState === undefined) console.log("problem");
+
+    if (
+      !this.props.cellState.startsWith("visited") &&
+      !this.props.cellState.includes("path")
+    ) {
+      delayAnim = "";
+    } else {
+      delayAnim = delay.toString() + "s";
+    }
 
     return (
       <td

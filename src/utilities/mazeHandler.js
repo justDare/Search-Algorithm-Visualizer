@@ -1,6 +1,6 @@
 import { randomWeights } from "./mazes/randomWeights";
 
 export function mazeHandler(maze, grid) {
-    randomWeights(grid);
-    return maze;
+  const newMaze = randomWeights(grid);
+  return newMaze;
 }

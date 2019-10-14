@@ -4,9 +4,24 @@ import "./Navbar.scss";
 import { GridContext } from "../grid-context";
 
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { visualizeClicked: false };
+  }
+
+  // options for keeping board in tact but removing visited and path nodes ??
   handleClick = algorithm => {
-    let { visualize } = this.context;
-    visualize(algorithm);
+    if (!this.state.visualizeClicked) {
+      let { visualize } = this.context;
+      visualize(algorithm);
+    } else {
+      let { resetBoard } = this.context;
+      resetBoard();
+    }
+    if (this.state.visualizeClicked && algorithm !== null)
+      this.setState({ visualizeClicked: false });
+    else if (!this.state.visualizeClicked && algorithm !== null)
+      this.setState({ visualizeClicked: true });
   };
 
   handleAlgo = event => {
@@ -17,10 +32,11 @@ class Navbar extends React.Component {
   handleMaze = event => {
     let { createMaze } = this.context;
     createMaze(event.target.value);
-  }
+  };
 
   resetBoard = () => {
     let { resetBoard } = this.context;
+    this.setState({ visualizeClicked: false });
     resetBoard();
   };
 
@@ -29,6 +45,8 @@ class Navbar extends React.Component {
     let algorithmDisplay;
     if (algorithm !== null) algorithmDisplay = `Visualize ${algorithm}!`;
     else algorithmDisplay = "Select an algorithm!";
+
+    if (this.state.visualizeClicked) algorithmDisplay = "Clear!";
 
     const defaultValue = algorithmDisplay;
 
@@ -52,10 +70,7 @@ class Navbar extends React.Component {
         >
           Reset Board
         </div>
-        <select
-          onChange={this.handleMaze}
-          value="Mazes and Patterns"
-        >
+        <select onChange={this.handleMaze} value="Mazes and Patterns">
           <option name="Select A Maze" value="Select An Algorithm">
             Mazes & Patterns
           </option>
@@ -63,10 +78,7 @@ class Navbar extends React.Component {
             Random Weighted Maze
           </option>
         </select>
-        <select
-          onChange={this.handleAlgo}
-          value={defaultValue}
-        >
+        <select onChange={this.handleAlgo} value={defaultValue}>
           <option name="Select An Algorithm" value="Select An Algorithm">
             Algorithms
           </option>
