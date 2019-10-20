@@ -9,11 +9,33 @@
     }
 
     td.start {
-      background-color: green;
+      background-image: url("../assets/grid/start.png");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      animation-name: imgAnimation;
+      animation-duration: 0.3s;
+      animation-timing-function: linear;
+      animation-delay: 0;
+      animation-direction: alternate;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
     }
 
     td.end {
-      background-color: red;
+      background-image: url("../assets/grid/target.png");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      animation-name: imgAnimation;
+      animation-duration: 0.3s;
+      animation-timing-function: linear;
+      animation-delay: 0;
+      animation-direction: alternate;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-play-state: running;
     }
 
     td.wall {
@@ -55,7 +77,7 @@
       background-position: center center;
       background-repeat: no-repeat;
       background-size: contain;
-      animation-name: weightAnimation;
+      animation-name: imgAnimation;
       animation-duration: 0.3s;
       animation-timing-function: linear;
       animation-delay: 0;
@@ -67,7 +89,7 @@
   }
 }
 
-@keyframes weightAnimation {
+@keyframes imgAnimation {
   0% {
     transform: scale(0.6);
   }

@@ -28,12 +28,20 @@ class App extends React.Component {
       this.setState({ grid: mazeHandler(maze, this.state.grid) });
     };
     // add options to preserve walls, start & end points and weights
-    this.resetBoard = () => {
-      this.setState({ grid: initGrid(), path: [], visited: [] });
-      this.setState({
-        startPoint: this.getStart(),
-        target: this.getTarget()
-      });
+    this.resetBoard = (resetSearch) => {
+      if (!resetSearch) {
+        this.setState({ grid: initGrid(), path: [], visited: [] });
+        this.setState({
+          startPoint: this.getStart(),
+          target: this.getTarget()
+        });
+      } else {
+        this.setState({
+          grid: removeCells(this.state.grid, true, true, true),
+          path: [],
+          visited: []
+        })
+      }
     };
     this.toggleMousePressed = id => {
       // mouse is pressed, toggle off and empty selected cell point
@@ -144,7 +152,7 @@ class App extends React.Component {
 
     this.visualize = algorithm => {
       let grid = this.setState({
-        grid: removeCells(this.state.grid, true, true, false),
+        // grid: removeCells(this.state.grid, true, true, false),
         willVisualize: true
       });
     };

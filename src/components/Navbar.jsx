@@ -16,7 +16,8 @@ class Navbar extends React.Component {
       visualize(algorithm);
     } else {
       let { resetBoard } = this.context;
-      resetBoard();
+      const resetSearch = true;
+      resetBoard(resetSearch);
     }
     if (this.state.visualizeClicked && algorithm !== null)
       this.setState({ visualizeClicked: false });
@@ -46,7 +47,7 @@ class Navbar extends React.Component {
     if (algorithm !== null) algorithmDisplay = `Visualize ${algorithm}!`;
     else algorithmDisplay = "Select an algorithm!";
 
-    if (this.state.visualizeClicked) algorithmDisplay = "Clear!";
+    if (this.state.visualizeClicked) algorithmDisplay = "Clear search!";
 
     const defaultValue = algorithmDisplay;
 
