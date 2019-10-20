@@ -75,9 +75,38 @@ export function searchHelpers() {
     return grid;
   }
 
+  // might not need this ...
+  // function xyCoordinateToString(xyCoordinate) {
+  //   if (typeof xyCoordinate === "undefined") {
+  //     console.log("Coordinate undefined error.");
+  //     return -1;
+  //   }
+
+  //   return `${xyCoordinate[0]}-${xyCoordinate[1]}`;
+  // }
+
+  function getPath(path, end) {
+    let pathArray = [];
+    let currentCell = end;
+    while (currentCell !== null) {
+      pathArray.unshift(currentCell);
+      currentCell = path[currentCell];
+    }
+    return pathArray;
+  }
+
+  function manhattanDistance(position1, position2) {
+    const distanceX = Math.abs(position2[0] - position1[0]);
+    const distanceY = Math.abs(position2[1] - position1[1]);
+    return distanceX + distanceY;
+  }
+
   searchHelpers.hasVertex = hasVertex;
   searchHelpers.arraysMatch = arraysMatch;
   searchHelpers.getNeighbours = getNeighbours;
   searchHelpers.inBounds = inBounds;
   searchHelpers.updateGrid = updateGrid;
+  searchHelpers.getPath = getPath;
+  searchHelpers.manhattanDistance = manhattanDistance;
+  // searchHelpers.xyCoordinateToString = xyCoordinateToString; // might not need this ...
 }

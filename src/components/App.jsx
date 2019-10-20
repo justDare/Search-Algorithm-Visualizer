@@ -13,6 +13,8 @@ import { removeCells } from "../utilities/removeCells";
 // algorithms
 import { DFS } from "../utilities/searchAlgorithms/DFS";
 import { BFS } from "../utilities/searchAlgorithms/BFS";
+import { Dijkstra } from "../utilities/searchAlgorithms/Dijkstra";
+import { AStar } from "../utilities/searchAlgorithms/AStar";
 
 // boards and mazes creation
 import { mazeHandler } from "../utilities/mazeHandler";
@@ -28,7 +30,7 @@ class App extends React.Component {
       this.setState({ grid: mazeHandler(maze, this.state.grid) });
     };
     // add options to preserve walls, start & end points and weights
-    this.resetBoard = (resetSearch) => {
+    this.resetBoard = resetSearch => {
       if (!resetSearch) {
         this.setState({ grid: initGrid(), path: [], visited: [] });
         this.setState({
@@ -37,10 +39,10 @@ class App extends React.Component {
         });
       } else {
         this.setState({
-          grid: removeCells(this.state.grid, true, true, true),
+          grid: removeCells(this.state.grid, true, true, false),
           path: [],
           visited: []
-        })
+        });
       }
     };
     this.toggleMousePressed = id => {
@@ -97,17 +99,20 @@ class App extends React.Component {
               grid: newGrid
             },
             () => {
-              if (curVal === "wall")
+              if (curVal === "wall" || curVal.includes("weight"))
                 this.setState({
-                  lastCell: { cell: "wall", points: [indexes[0], indexes[1]] }
+                  lastCell: { cell: curVal, points: [indexes[0], indexes[1]] }
                 });
-              if (this.state.lastCell.cell === "wall") {
+              if (
+                this.state.lastCell.cell === "wall" ||
+                this.state.lastCell.cell.includes("weight")
+              ) {
                 this.setState({
                   grid: initGrid.updateGrid(
                     this.state.grid,
                     this.state.lastCell.points[1],
                     this.state.lastCell.points[0],
-                    "wall"
+                    this.state.lastCell.cell
                   )
                 });
               }
@@ -167,7 +172,7 @@ class App extends React.Component {
       selectedCellVal: myState.selectedCellVal,
       visited: myState.visited,
       path: myState.path,
-      lastCell: { cell: null, points: [] },
+      lastCell: { cell: "", points: [] },
       resetBoard: this.resetBoard,
       setAlgorithm: this.setAlgorithm,
       createMaze: this.createMaze,
@@ -195,6 +200,20 @@ class App extends React.Component {
         break;
       case "BFS":
         results = BFS(
+          this.state.grid,
+          this.state.startPoint,
+          this.state.target
+        );
+        break;
+      case "Dijkstra":
+        results = Dijkstra(
+          this.state.grid,
+          this.state.startPoint,
+          this.state.target
+        );
+        break;
+      case "A*":
+        results = AStar(
           this.state.grid,
           this.state.startPoint,
           this.state.target

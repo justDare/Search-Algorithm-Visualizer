@@ -52,7 +52,6 @@ class Grid extends React.Component {
 
   render() {
     let table = this.createTable();
-    console.log("grid renbder");
     return (
       <table id="grid">
         <tbody>{table}</tbody>
