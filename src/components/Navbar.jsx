@@ -89,6 +89,9 @@ class Navbar extends React.Component {
           <option name="Depth First Search" value="DFS">
             Depth First Search
           </option>
+          <option name="Greedy" value="Greedy">
+            Greedy Best-First Search
+          </option>
           <option name="Dijkstra's Algorithm" value="Dijkstra">
             Dijkstra's Algorithm
           </option>

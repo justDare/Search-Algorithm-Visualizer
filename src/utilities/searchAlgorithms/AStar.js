@@ -1,6 +1,5 @@
 import { searchHelpers } from "../searchHelpers";
 import PriorityQueue from "../PriorityQueue";
-import { fstat } from "fs";
 
 export function AStar(grid, start, end) {
   // initialize helper functions
@@ -9,7 +8,7 @@ export function AStar(grid, start, end) {
   const { visited, pathArray } = AStar(grid, start, end);
 
   let newGrid = searchHelpers.updateGrid(grid, visited, false);
-  let gridWithPath = newGrid.map(function(arr) {
+  let gridWithPath = newGrid.map(function (arr) {
     return arr.slice();
   });
 

@@ -15,6 +15,7 @@ import { DFS } from "../utilities/searchAlgorithms/DFS";
 import { BFS } from "../utilities/searchAlgorithms/BFS";
 import { Dijkstra } from "../utilities/searchAlgorithms/Dijkstra";
 import { AStar } from "../utilities/searchAlgorithms/AStar";
+import { Greedy } from "../utilities/searchAlgorithms/Greedy";
 
 // boards and mazes creation
 import { mazeHandler } from "../utilities/mazeHandler";
@@ -214,6 +215,13 @@ class App extends React.Component {
         break;
       case "A*":
         results = AStar(
+          this.state.grid,
+          this.state.startPoint,
+          this.state.target
+        );
+        break;
+      case "Greedy":
+        results = Greedy(
           this.state.grid,
           this.state.startPoint,
           this.state.target
