@@ -35,6 +35,17 @@ class Navbar extends React.Component {
     createMaze(event.target.value);
   };
 
+  handleSpeed = event => {
+    let { changeSpeed } = this.context;
+    const speed = event.target.value;
+    let newSpeed;
+    if (speed === "fast") newSpeed = [0.01, 0.02];
+    else if (speed === "medium") newSpeed = [0.05, 0.1];
+    else if (speed === "slow") newSpeed = [0.09, 0.18];
+
+    changeSpeed(newSpeed);
+  };
+
   resetBoard = () => {
     let { resetBoard } = this.context;
     this.setState({ visualizeClicked: false });
@@ -43,11 +54,23 @@ class Navbar extends React.Component {
 
   render() {
     let { algorithm } = this.context;
-    let algorithmDisplay;
+    let algorithmDisplay, visualizeColor;
+    visualizeColor = "#007bff";
     if (algorithm !== null) algorithmDisplay = `Visualize ${algorithm}!`;
     else algorithmDisplay = "Select an algorithm!";
 
-    if (this.state.visualizeClicked) algorithmDisplay = "Clear search!";
+    if (this.state.visualizeClicked) {
+      algorithmDisplay = "Clear search!";
+      visualizeColor = "red";
+    }
+
+    let lock;
+    if (this.props.lockBoard) lock = "none";
+    else lock = "auto";
+
+    let lockClearPath;
+    if (this.props.lockClearPath) lockClearPath = "none";
+    else lockClearPath = "auto";
 
     const defaultValue = algorithmDisplay;
 
@@ -61,6 +84,10 @@ class Navbar extends React.Component {
           id="visualize"
           className="btn-primary"
           onClick={() => this.handleClick(algorithm)}
+          style={{
+            backgroundColor: visualizeColor,
+            pointerEvents: lockClearPath
+          }}
         >
           {algorithmDisplay}
         </div>
@@ -68,10 +95,15 @@ class Navbar extends React.Component {
           id="reset"
           className="btn-secondary"
           onClick={() => this.resetBoard()}
+          style={{ pointerEvents: lock }}
         >
           Reset Board
         </div>
-        <select onChange={this.handleMaze} value="Mazes and Patterns">
+        <select
+          onChange={this.handleMaze}
+          value="Mazes and Patterns"
+          style={{ pointerEvents: lock }}
+        >
           <option name="Select A Maze" value="Select An Algorithm">
             Mazes & Patterns
           </option>
@@ -79,7 +111,11 @@ class Navbar extends React.Component {
             Random Weighted Maze
           </option>
         </select>
-        <select onChange={this.handleAlgo} value={defaultValue}>
+        <select
+          onChange={this.handleAlgo}
+          value={defaultValue}
+          style={{ pointerEvents: lock }}
+        >
           <option name="Select An Algorithm" value="Select An Algorithm">
             Algorithms
           </option>
@@ -97,6 +133,24 @@ class Navbar extends React.Component {
           </option>
           <option name="A* Search" value="A*">
             A* Search
+          </option>
+        </select>
+        <select
+          onChange={this.handleSpeed}
+          value="Speed"
+          style={{ pointerEvents: lock }}
+        >
+          <option name="Change speed" value="Change Speed">
+            Speed
+          </option>
+          <option name="Fast" value="fast">
+            Fast
+          </option>
+          <option name="Medium" value="medium">
+            Medium
+          </option>
+          <option name="Slow" value="slow">
+            Slow
           </option>
         </select>
       </nav>

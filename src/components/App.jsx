@@ -19,6 +19,7 @@ import { Greedy } from "../utilities/searchAlgorithms/Greedy";
 
 // boards and mazes creation
 import { mazeHandler } from "../utilities/mazeHandler";
+import { throwStatement } from "@babel/types";
 
 class App extends React.Component {
   constructor(props) {
@@ -42,7 +43,8 @@ class App extends React.Component {
         this.setState({
           grid: removeCells(this.state.grid, true, true, false),
           path: [],
-          visited: []
+          visited: [],
+          lockBoard: false
         });
       }
     };
@@ -163,6 +165,10 @@ class App extends React.Component {
       });
     };
 
+    this.changeSpeed = speed => {
+      this.setState({ speed: speed });
+    };
+
     this.state = {
       grid: this.initGrid(),
       startPoint: this.getStart(),
@@ -181,7 +187,11 @@ class App extends React.Component {
       visualize: this.visualize,
       willVisualize: false,
       toggleCell: this.toggleCell,
-      drag: this.drag
+      drag: this.drag,
+      speed: myState.speed,
+      changeSpeed: this.changeSpeed,
+      lockBoard: myState.lockBoard,
+      lockClearPath: myState.lockClearPath
     };
   }
 
@@ -238,16 +248,32 @@ class App extends React.Component {
     setTimeout(() => {
       this.setState({
         visited: results.visited,
-        grid: results.newGrid
+        grid: results.newGrid,
+        lockBoard: true,
+        lockClearPath: true
       });
     }, 1);
+
+    const showPath = results.visited.length * this.state.speed[0] * 1000 + 900;
+
     setTimeout(() => {
       this.setState({
         grid: results.gridWithPath,
         path: results.pathArray,
         willVisualize: false
       });
-    }, results.visited.length * 0.01 * 1000 + 900);
+    }, showPath);
+    console.log(showPath);
+    console.log(results.pathArray.length);
+
+    const pathShown =
+      showPath + results.pathArray.length * this.state.speed[1] * 1000;
+
+    setTimeout(() => {
+      this.setState({
+        lockClearPath: false
+      });
+    }, pathShown + 100);
   };
 
   componentDidUpdate(previousProps, previousState) {
@@ -263,8 +289,16 @@ class App extends React.Component {
     return (
       <div>
         <GridContext.Provider value={this.state}>
-          <Navbar />
-          <Grid visited={this.state.visited} path={this.state.path} />
+          <Navbar
+            lockBoard={this.state.lockBoard}
+            lockClearPath={this.state.lockClearPath}
+          />
+          <Grid
+            visited={this.state.visited}
+            path={this.state.path}
+            speed={this.state.speed}
+            lockBoard={this.state.lockBoard}
+          />
         </GridContext.Provider>
       </div>
     );

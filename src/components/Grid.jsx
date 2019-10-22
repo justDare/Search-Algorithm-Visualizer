@@ -29,11 +29,11 @@ class Grid extends React.Component {
         let delay, index;
         if (this.props.visited.length > 0) {
           index = this.getVisitedIndex(this.props.visited, [i, j]);
-          delay = index * 0.01;
+          delay = index * this.props.speed[0];
         }
         if (this.props.path.length > 0) {
           index = this.getVisitedIndex(this.props.path, [i, j]);
-          delay = index * 0.02;
+          delay = index * this.props.speed[1];
         }
         children.push(
           <Cell
@@ -52,8 +52,11 @@ class Grid extends React.Component {
 
   render() {
     let table = this.createTable();
+    let lock;
+    if (this.props.lockBoard) lock = "none";
+    else lock = "auto";
     return (
-      <table id="grid">
+      <table id="grid" style={{ pointerEvents: lock }}>
         <tbody>{table}</tbody>
       </table>
     );

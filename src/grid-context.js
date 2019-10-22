@@ -10,6 +10,9 @@ export const myState = {
   selectedCellVal: false,
   visited: [],
   path: [],
+  speed: [0.01, 0.02],
+  lockBoard: false,
+  lockClearPath: false,
   setAlgorithm: () => {
     console.log("set algo");
   },
@@ -26,6 +29,9 @@ export const myState = {
     console.log(id);
   },
   visualize: algorithm => {
+    console.log("algo");
+  },
+  changeSpeed: speed => {
     console.log("algo");
   }
 };
