@@ -1,8 +1,25 @@
 .navbar {
+  background-color: #34495e;
+
   .navbar-brand {
-    width: 100%;
-    padding-bottom: 1rem;
+    color: white;
   }
+
+  .btn-primary {
+    background-color: #1abc9c;
+    width: 200px;
+  }
+
+  .btn-secondary {
+    background-color: #d40ba0;
+  }
+
+  .custom-drop {
+    background-color: #34495e;
+    border: none;
+    color: white;
+  }
+
   #visualize,
   #reset {
     cursor: pointer;

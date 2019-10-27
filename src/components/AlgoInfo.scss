@@ -1,0 +1,57 @@
+.algo-display {
+    min-height: 6rem;
+
+    .node-info {
+        .block-container {
+            padding: 10px 0;
+
+            p {
+                margin-bottom: 0;;
+            }
+        }
+    }
+}
+
+.legend {
+    display: flex;
+    padding: 30px 0;
+}
+
+.block {
+    height: 25px;
+    width: 25px;
+    display: block;
+    margin-right: 10px;
+}
+
+.start-block {
+    background-image: url('../assets/grid/start.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.target-block {
+    background-image: url('../assets/grid/target.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.weight-block {
+    background-image: url('../assets/grid/weight.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.visited-block {
+    background-color: rgba(0, 190, 218, 0.75);
+}
+.path-block {
+    background-color: rgb(255, 254, 106);
+}
+.wall-block {
+    background-color: rgb(12, 53, 71);
+}
+.unvisited-block {
+    background-color: white;
+    border: 1px solid #3bb1ec;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar.jsx";
 import Grid from "./Grid.jsx";
+import AlgoInfo from "./AlgoInfo.jsx"
 
 import { GridContext, myState } from "../grid-context";
 
@@ -37,14 +38,16 @@ class App extends React.Component {
         this.setState({ grid: initGrid(), path: [], visited: [] });
         this.setState({
           startPoint: this.getStart(),
-          target: this.getTarget()
+          target: this.getTarget(),
+          algoStats: []
         });
       } else {
         this.setState({
           grid: removeCells(this.state.grid, true, true, false),
           path: [],
           visited: [],
-          lockBoard: false
+          lockBoard: false,
+          algoStats: []
         });
       }
     };
@@ -191,7 +194,8 @@ class App extends React.Component {
       speed: myState.speed,
       changeSpeed: this.changeSpeed,
       lockBoard: myState.lockBoard,
-      lockClearPath: myState.lockClearPath
+      lockClearPath: myState.lockClearPath,
+      algoStats: []
     };
   }
 
@@ -263,15 +267,16 @@ class App extends React.Component {
         willVisualize: false
       });
     }, showPath);
-    console.log(showPath);
-    console.log(results.pathArray.length);
 
     const pathShown =
       showPath + results.pathArray.length * this.state.speed[1] * 1000;
 
+    console.log(results.visited);
+
     setTimeout(() => {
       this.setState({
-        lockClearPath: false
+        lockClearPath: false,
+        algoStats: [results.visited.length, results.pathArray.length]
       });
     }, pathShown + 100);
   };
@@ -286,6 +291,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.algoStats);
     return (
       <div>
         <GridContext.Provider value={this.state}>
@@ -293,6 +299,7 @@ class App extends React.Component {
             lockBoard={this.state.lockBoard}
             lockClearPath={this.state.lockClearPath}
           />
+          <AlgoInfo algoStats={this.state.algoStats} algo={this.state.algorithm}></AlgoInfo>
           <Grid
             visited={this.state.visited}
             path={this.state.path}

@@ -41,7 +41,7 @@ class Navbar extends React.Component {
     let newSpeed;
     if (speed === "fast") newSpeed = [0.01, 0.02];
     else if (speed === "medium") newSpeed = [0.05, 0.1];
-    else if (speed === "slow") newSpeed = [0.09, 0.18];
+    else if (speed === "slow") newSpeed = [0.25, 0.18];
 
     changeSpeed(newSpeed);
   };
@@ -55,7 +55,7 @@ class Navbar extends React.Component {
   render() {
     let { algorithm } = this.context;
     let algorithmDisplay, visualizeColor;
-    visualizeColor = "#007bff";
+    visualizeColor = "#1abc9c";
     if (algorithm !== null) algorithmDisplay = `Visualize ${algorithm}!`;
     else algorithmDisplay = "Select an algorithm!";
 
@@ -75,7 +75,7 @@ class Navbar extends React.Component {
     const defaultValue = algorithmDisplay;
 
     return (
-      <nav className="navbar navbar-light bg-light">
+      <nav className="navbar navbar-light">
         <a className="navbar-brand" href="/">
           {/* <img src="" width="30" height="30" class="d-inline-block align-top" alt=""> */}
           SearchBuddy
@@ -103,9 +103,13 @@ class Navbar extends React.Component {
           onChange={this.handleMaze}
           value="Mazes and Patterns"
           style={{ pointerEvents: lock }}
+          className="custom-drop"
         >
           <option name="Select A Maze" value="Select An Algorithm">
             Mazes & Patterns
+          </option>
+          <option name="Recursive Division" value="recursive-division">
+            Maze(Recursive Division)
           </option>
           <option name="Random Weighted Maze" value="random-weighted">
             Random Weighted Maze
@@ -115,6 +119,7 @@ class Navbar extends React.Component {
           onChange={this.handleAlgo}
           value={defaultValue}
           style={{ pointerEvents: lock }}
+          className="custom-drop"
         >
           <option name="Select An Algorithm" value="Select An Algorithm">
             Algorithms
@@ -139,6 +144,7 @@ class Navbar extends React.Component {
           onChange={this.handleSpeed}
           value="Speed"
           style={{ pointerEvents: lock }}
+          className="custom-drop"
         >
           <option name="Change speed" value="Change Speed">
             Speed
