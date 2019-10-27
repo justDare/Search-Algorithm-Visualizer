@@ -1,12 +1,12 @@
 import { randomWeights } from "./mazes/randomWeights";
-import { recursiveDivision } from "./mazes/recursiveDivision";
+import { randomMaze } from "./mazes/randomMaze";
 
 export function mazeHandler(maze, grid) {
   let newMaze;
   if (maze === "random-weighted")
     newMaze = randomWeights(grid);
-  else if (maze === "recursive-division")
-    newMaze = recursiveDivision(grid);
+  else if (maze === "random-maze")
+    newMaze = randomMaze(grid);
 
   return newMaze;
 }

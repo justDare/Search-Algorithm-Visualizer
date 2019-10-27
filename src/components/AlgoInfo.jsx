@@ -27,12 +27,12 @@ class AlgoInfo extends React.Component {
 
     getStats = (algoStats) => {
         return (
-            <div>
-                <div className="d-flex block-container">
+            <div className="d-flex align-items-center">
+                <div className="d-flex block-container pr-3">
                     <span className="block visited-block"></span>
                     <p><span className="font-weight-bold">{algoStats[0]}</span> nodes were <span className="font-weight-bold">visited</span></p>
                 </div>
-                <div className="d-flex block-conntainer">
+                <div className="d-flex block-container">
                     <span className="block path-block"></span>
                     <p><span className="font-weight-bold">{algoStats[1]}</span> nodes in the <span className="font-weight-bold">path</span></p>
                 </div>

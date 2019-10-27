@@ -1,9 +1,12 @@
 .algo-display {
-    min-height: 6rem;
+    min-height: 4rem;
+
+    .row {
+        min-height: 4rem;
+    }
 
     .node-info {
         .block-container {
-            padding: 10px 0;
 
             p {
                 margin-bottom: 0;;
@@ -15,6 +18,9 @@
 .legend {
     display: flex;
     padding: 30px 0;
+    justify-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .block {

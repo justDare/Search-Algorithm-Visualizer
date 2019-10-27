@@ -20,7 +20,6 @@ import { Greedy } from "../utilities/searchAlgorithms/Greedy";
 
 // boards and mazes creation
 import { mazeHandler } from "../utilities/mazeHandler";
-import { throwStatement } from "@babel/types";
 
 class App extends React.Component {
   constructor(props) {

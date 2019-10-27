@@ -1,8 +1,14 @@
 .navbar {
   background-color: #34495e;
+  justify-content: left;
+
+  & > div {
+    margin-left: 25px;
+  }
 
   .navbar-brand {
     color: white;
+    font-weight: 500;
   }
 
   .btn-primary {
@@ -14,10 +20,30 @@
     background-color: #d40ba0;
   }
 
-  .custom-drop {
-    background-color: #34495e;
+  .dropdown-toggle {
+    background: none;
     border: none;
     color: white;
+
+    &:hover {
+      color: #1abc9c;  
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: #34495e;
+    top: 160%;
+
+    a {
+      color: white;
+
+      &:hover {
+        background-color: #1abc9c;
+      }
+    }
   }
 
   #visualize,
@@ -26,7 +52,5 @@
     padding: 5px 10px;
     border-radius: 5px;
   }
-  select {
-    cursor: pointer;
-  }
+  
 }
