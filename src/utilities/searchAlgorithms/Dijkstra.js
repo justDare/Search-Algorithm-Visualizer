@@ -40,7 +40,7 @@ export function Dijkstra(grid, start, end) {
       // dequeue
       let minCell = pq.pop();
       let currentNode = minCell.value;
-      let currentWeight = minCell.priority;
+
       // mark visited for animations
       if (
         !searchHelpers.arraysMatch(minCell.value, start) &&

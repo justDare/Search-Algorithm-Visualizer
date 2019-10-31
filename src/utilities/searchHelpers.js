@@ -1,6 +1,4 @@
 export function searchHelpers() {
-  console.log("helpers");
-
   // check visited array for a vertex
   function hasVertex(array, array2D) {
     if (array2D.length === 0) return false;
@@ -75,16 +73,6 @@ export function searchHelpers() {
     return grid;
   }
 
-  // might not need this ...
-  // function xyCoordinateToString(xyCoordinate) {
-  //   if (typeof xyCoordinate === "undefined") {
-  //     console.log("Coordinate undefined error.");
-  //     return -1;
-  //   }
-
-  //   return `${xyCoordinate[0]}-${xyCoordinate[1]}`;
-  // }
-
   function getPath(path, end) {
     let pathArray = [];
     let currentCell = end;
@@ -108,5 +96,4 @@ export function searchHelpers() {
   searchHelpers.updateGrid = updateGrid;
   searchHelpers.getPath = getPath;
   searchHelpers.manhattanDistance = manhattanDistance;
-  // searchHelpers.xyCoordinateToString = xyCoordinateToString; // might not need this ...
 }

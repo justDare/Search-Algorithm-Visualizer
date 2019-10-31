@@ -5,10 +5,6 @@ import Cell from "./Cell";
 import { GridContext } from "../grid-context";
 
 class Grid extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   getVisitedIndex = (visited, indexes) => {
     for (var i = 0; i < visited.length; i++) {
       if (visited[i][0] === indexes[0] && visited[i][1] === indexes[1]) {

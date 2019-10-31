@@ -8,7 +8,7 @@ export function AStar(grid, start, end) {
   const { visited, pathArray } = AStar(grid, start, end);
 
   let newGrid = searchHelpers.updateGrid(grid, visited, false);
-  let gridWithPath = newGrid.map(function (arr) {
+  let gridWithPath = newGrid.map(function(arr) {
     return arr.slice();
   });
 
@@ -21,8 +21,7 @@ export function AStar(grid, start, end) {
 
     let path = {},
       gScore = {},
-      fScore = {},
-      closed = {};
+      fScore = {};
 
     // initial discovered node is the start only
     let open = new PriorityQueue();
@@ -48,7 +47,6 @@ export function AStar(grid, start, end) {
       // dequeue
       let minCell = open.pop();
       let currentNode = minCell.value;
-      let currentWeight = minCell.priority;
 
       // if target found, cut search and return
       if (searchHelpers.arraysMatch(currentNode, end)) {
@@ -70,7 +68,6 @@ export function AStar(grid, start, end) {
       );
 
       for (var neighbor of neighbors) {
-        // already closed, skip to next neighbour
         let potentialScore;
         // score based on weighted cell or not
         if (grid[neighbor[0]][neighbor[1]].includes("weight"))

@@ -13,7 +13,7 @@ class Navbar extends React.Component {
   }
 
   // options for keeping board in tact but removing visited and path nodes ??
-  handleClick = (algorithm) => {
+  handleClick = algorithm => {
     if (!this.state.visualizeClicked) {
       let { visualize } = this.context;
       visualize(algorithm);
@@ -28,17 +28,17 @@ class Navbar extends React.Component {
       this.setState({ visualizeClicked: true });
   };
 
-  handleAlgo = (event) => {
+  handleAlgo = event => {
     let { setAlgorithm } = this.context;
     setAlgorithm(event.target.id);
   };
 
-  handleMaze = (event) => {
+  handleMaze = event => {
     let { createMaze } = this.context;
     createMaze(event.target.id);
   };
 
-  handleSpeed = (event) => {
+  handleSpeed = event => {
     let { changeSpeed } = this.context;
     const speed = event.target.id;
     let newSpeed;
@@ -75,8 +75,6 @@ class Navbar extends React.Component {
     if (this.props.lockClearPath) lockClearPath = "none";
     else lockClearPath = "auto";
 
-    const defaultValue = algorithmDisplay;
-
     return (
       <nav className="navbar navbar-light">
         <a className="navbar-brand" href="/">
@@ -102,34 +100,107 @@ class Navbar extends React.Component {
           Reset Board
         </div>
         <div className="dropdown" style={{ pointerEvents: lock }}>
-          <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button
+            className="dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
             Mazes & Patterns
           </button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ pointerEvents: lock }}>
-            <a onClick={this.handleMaze} id="random-weighted" className="dropdown-item">Random Weighted Maze</a>
-            <a onClick={this.handleMaze} id="random-maze" className="dropdown-item">Random Maze</a>
+          <div
+            className="dropdown-menu"
+            aria-labelledby="dropdownMenuButton"
+            style={{ pointerEvents: lock }}
+          >
+            <div
+              onClick={this.handleMaze}
+              id="random-weighted"
+              className="dropdown-item"
+            >
+              Random Weighted Maze
+            </div>
+            <div
+              onClick={this.handleMaze}
+              id="random-maze"
+              className="dropdown-item"
+            >
+              Random Maze
+            </div>
           </div>
         </div>
         <div className="dropdown" style={{ pointerEvents: lock }}>
-          <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button
+            className="dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
             Algorithms
           </button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ pointerEvents: lock }}>
-            <a onClick={this.handleAlgo} id="BFS" className="dropdown-item">Breadth First Search</a>
-            <a onClick={this.handleAlgo} id="DFS" className="dropdown-item">Depth First Search</a>
-            <a onClick={this.handleAlgo} id="Greedy" className="dropdown-item">Greedy Best-First Search</a>
-            <a onClick={this.handleAlgo} id="Dijkstra" className="dropdown-item">Dijkstra's Algorithm</a>
-            <a onClick={this.handleAlgo} id="A*" className="dropdown-item">A* Search</a>
+          <div
+            className="dropdown-menu"
+            aria-labelledby="dropdownMenuButton"
+            style={{ pointerEvents: lock }}
+          >
+            <div onClick={this.handleAlgo} id="BFS" className="dropdown-item">
+              Breadth First Search
+            </div>
+            <div onClick={this.handleAlgo} id="DFS" className="dropdown-item">
+              Depth First Search
+            </div>
+            <div
+              onClick={this.handleAlgo}
+              id="Greedy"
+              className="dropdown-item"
+            >
+              Greedy Best-First Search
+            </div>
+            <div
+              onClick={this.handleAlgo}
+              id="Dijkstra"
+              className="dropdown-item"
+            >
+              Dijkstra's Algorithm
+            </div>
+            <div onClick={this.handleAlgo} id="A*" className="dropdown-item">
+              A* Search
+            </div>
           </div>
         </div>
         <div className="dropdown" style={{ pointerEvents: lock }}>
-          <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button
+            className="dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
             Speed
           </button>
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ pointerEvents: lock }}>
-            <a onClick={this.handleSpeed} id="fast" className="dropdown-item">Fast</a>
-            <a onClick={this.handleSpeed} id="average" className="dropdown-item">Average</a>
-            <a onClick={this.handleSpeed} id="slow" className="dropdown-item">Slow</a>
+          <div
+            className="dropdown-menu"
+            aria-labelledby="dropdownMenuButton"
+            style={{ pointerEvents: lock }}
+          >
+            <div onClick={this.handleSpeed} id="fast" className="dropdown-item">
+              Fast
+            </div>
+            <div
+              onClick={this.handleSpeed}
+              id="average"
+              className="dropdown-item"
+            >
+              Average
+            </div>
+            <div onClick={this.handleSpeed} id="slow" className="dropdown-item">
+              Slow
+            </div>
           </div>
         </div>
       </nav>

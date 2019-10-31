@@ -50,10 +50,9 @@ export function Greedy(grid, start, end) {
         grid.length,
         grid[0].length
       );
-      console.log(neighbors);
+
       if (neighbors) {
         for (var neighbor of neighbors) {
-          console.log(neighbor);
           if (!searchHelpers.hasVertex(neighbor, visited)) {
             // visited.push(neighbor);
             path[neighbor] = cur;
@@ -64,12 +63,10 @@ export function Greedy(grid, start, end) {
             else cost = searchHelpers.manhattanDistance(neighbor, end) + 1;
 
             pq.push(neighbor, cost);
-            console.log(neighbor);
           }
         }
       }
     }
-    console.log(visited, pathArray);
     return { visited, pathArray };
   }
 
