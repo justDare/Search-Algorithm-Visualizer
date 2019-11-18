@@ -77,7 +77,7 @@ class Navbar extends React.Component {
 
     return (
       <nav className="navbar navbar-light">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="/Search-Algorithm-Visualizer/">
           Search Algorithm Visulaizer
         </a>
         <div
