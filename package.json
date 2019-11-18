@@ -2,7 +2,7 @@
   "name": "SearchAlgorithmVisualizer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://justDare.github.io/Search-Algortithm-Visualizer",
+  "homepage": "http://justDare.github.io/Search-Algorithm-Visualizer",
   "dependencies": {
     "immutability-helper": "^3.0.1",
     "node-sass": "^4.12.0",
